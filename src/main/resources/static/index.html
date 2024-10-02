@@ -17,10 +17,19 @@
 </head>
 
 <style>
+    body {
+        /*background-color: green;*/
+        width: 700px;
+        margin: 40px auto 0 auto;
+    }
+
     .schedulePostingBox {
-        background-color: orange;
-        margin: 20px auto 0 auto;
-        padding: 20px;
+        background-color: #EAE4DD;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+
+        margin: 20px auto 40px auto;
+        padding: 15px 0 20px 0;
         width: 700px;
         display: flex;
         flex-direction: column;
@@ -29,48 +38,78 @@
     }
 
     .postingBoxContent1 {
-        width: 500px;
+        width: 600px;
+    }
+
+    .form-control {
+        border-width: 2px;
+        border-color: #6c757d;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
 </style>
 
 <script>
+    // 일정 생성
+    function writePost() {
+
+    }
 </script>
 
 <body>
-<!--글 작성 영역-->
-<div class="schedulePostingBox">
-    <!--    작성자 이름-->
-    <div class="mb-3 postingBoxContent1">
-        <label for="postingBoxAuthorName" class="form-label">이름</label>
-        <input type="text" class="form-control" id="postingBoxAuthorName" placeholder="홍길동">
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+                role="tab" aria-controls="nav-home" aria-selected="true">Home
+        </button>
+        <button class="nav-link" id="nav-create-schedule-tab" data-bs-toggle="tab" data-bs-target="#nav-create-schedule" type="button"
+                role="tab" aria-controls="nav-create-schedule" aria-selected="false">Profile
+        </button>
     </div>
-    <!--    이메일-->
-    <div class="mb-3 postingBoxContent1">
-        <label for="postingBoxEmail" class="form-label">이메일</label>
-        <input type="email" class="form-control" id="postingBoxEmail" placeholder="name@example.com">
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+        <!--        스케쥴 조회-->
+        ...
     </div>
-    <!--    패스워드-->
-    <div class="mb-3 postingBoxContent1">
-        <label for="postingBoxPassword" class="form-label">패스워드</label>
-        <input type="password" class="form-control" id="postingBoxPassword" placeholder="1234qwer!">
+    <div class="tab-pane fade" id="nav-create-schedule" role="tabpanel" aria-labelledby="nav-create-schedule-tab" tabindex="0">
+        <!--글 작성 영역-->
+        <div class="schedulePostingBox">
+            <!--    작성자 이름-->
+            <div class="mb-3 postingBoxContent1">
+                <label for="postingBoxAuthorName" class="form-label">이름</label>
+                <input type="text" class="form-control" id="postingBoxAuthorName" placeholder="홍길동">
+            </div>
+            <!--    이메일-->
+            <div class="mb-3 postingBoxContent1">
+                <label for="postingBoxEmail" class="form-label">이메일</label>
+                <input type="email" class="form-control" id="postingBoxEmail" placeholder="name@example.com">
+            </div>
+            <!--    패스워드-->
+            <div class="mb-3 postingBoxContent1">
+                <label for="postingBoxPassword" class="form-label">패스워드</label>
+                <input type="password" class="form-control" id="postingBoxPassword" placeholder="1234qwer!">
+            </div>
+            <!--    패스워드 확인용-->
+            <div class="mb-3 postingBoxContent1">
+                <label for="postingBoxPasswordCheck" class="form-label">패스워드 확인</label>
+                <input type="password" class="form-control" id="postingBoxPasswordCheck" placeholder="1234qwer!">
+            </div>
+            <!--    제목-->
+            <div class="mb-3 postingBoxContent1">
+                <label for="postingBoxTitle" class="form-label">제목</label>
+                <input type="text" class="form-control" id="postingBoxTitle" placeholder="제목">
+            </div>
+            <!--    내용-->
+            <div class="mb-3 postingBoxContent1">
+                <label for="postingBoxDescription" class="form-label">내용</label>
+                <textarea class="form-control" placeholder="내용" id="postingBoxDescription"
+                          style="height: 200px"></textarea>
+            </div>
+            <!--    버튼-->
+            <button type="button" onclick="writePost()" class="btn btn-success postingBoxContent1">등록하기</button>
+        </div>
     </div>
-    <!--    패스워드 확인용-->
-    <div class="mb-3 postingBoxContent1">
-        <label for="postingBoxPasswordCheck" class="form-label">패스워드 확인</label>
-        <input type="password" class="form-control" id="postingBoxPasswordCheck" placeholder="1234qwer!">
-    </div>
-    <!--    제목-->
-    <div class="mb-3 postingBoxContent1">
-        <label for="postingBoxTitle" class="form-label">제목</label>
-        <input type="text" class="form-control" id="postingBoxTitle" placeholder="제목">
-    </div>
-    <!--    내용-->
-    <div class="mb-3 postingBoxContent1">
-        <label for="postingBoxDescription" class="form-label">내용</label>
-        <textarea class="form-control" placeholder="내용" id="postingBoxDescription" style="height: 200px"></textarea>
-    </div>
-    <!--    버튼-->
-    <button type="button" class="btn btn-success postingBoxContent1">등록하기</button>
 </div>
+
 </body>
 </html>
