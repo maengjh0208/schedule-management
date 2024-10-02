@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>일일 스크럼</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icron -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Bootstrap Bundle with Popper (includes JavaScript) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<style>
+    .schedulePostingBox {
+        background-color: orange;
+        margin: 20px auto 0 auto;
+        padding: 20px;
+        width: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .postingBoxContent1 {
+        width: 500px;
+    }
+</style>
+
+<script>
+</script>
+
+<body>
+<!--글 작성 영역-->
+<div class="schedulePostingBox">
+    <!--    작성자 이름-->
+    <div class="mb-3 postingBoxContent1">
+        <label for="postingBoxAuthorName" class="form-label">이름</label>
+        <input type="text" class="form-control" id="postingBoxAuthorName" placeholder="홍길동">
+    </div>
+    <!--    이메일-->
+    <div class="mb-3 postingBoxContent1">
+        <label for="postingBoxEmail" class="form-label">이메일</label>
+        <input type="email" class="form-control" id="postingBoxEmail" placeholder="name@example.com">
+    </div>
+    <!--    패스워드-->
+    <div class="mb-3 postingBoxContent1">
+        <label for="postingBoxPassword" class="form-label">패스워드</label>
+        <input type="password" class="form-control" id="postingBoxPassword" placeholder="1234qwer!">
+    </div>
+    <!--    패스워드 확인용-->
+    <div class="mb-3 postingBoxContent1">
+        <label for="postingBoxPasswordCheck" class="form-label">패스워드 확인</label>
+        <input type="password" class="form-control" id="postingBoxPasswordCheck" placeholder="1234qwer!">
+    </div>
+    <!--    제목-->
+    <div class="mb-3 postingBoxContent1">
+        <label for="postingBoxTitle" class="form-label">제목</label>
+        <input type="text" class="form-control" id="postingBoxTitle" placeholder="제목">
+    </div>
+    <!--    내용-->
+    <div class="mb-3 postingBoxContent1">
+        <label for="postingBoxDescription" class="form-label">내용</label>
+        <textarea class="form-control" placeholder="내용" id="postingBoxDescription" style="height: 200px"></textarea>
+    </div>
+    <!--    버튼-->
+    <button type="button" class="btn btn-success postingBoxContent1">등록하기</button>
+</div>
+</body>
+</html>
