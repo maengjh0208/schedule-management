@@ -23,7 +23,7 @@
         margin: 40px auto 0 auto;
     }
 
-    .schedulePostingBox {
+    .scheduleArea {
         background-color: #EAE4DD;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
@@ -46,12 +46,96 @@
         border-color: #6c757d;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
+
+    .card {
+        margin: 10px auto 10px auto;
+    }
 </style>
 
 <script>
-    // 일정 생성
-    function writePost() {
 
+
+    function isEmpty(content) {
+        return content !== '';
+    }
+
+    function isValidEmail(email) {
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+
+    // 일정 생성 (POST /api/schedule)
+    function writePost() {
+        let username = $('#postingBoxAuthorName').val().trim();
+        let email = $('#postingBoxEmail').val().trim();
+        let password = $('#postingBoxPassword').val().trim();
+        let password2 = $('#postingBoxPasswordCheck').val().trim();
+        let title = $('#postingBoxTitle').val().trim();
+        let description = $('#postingBoxDescription').val().trim();
+
+        $('#errorPostingBoxAuthorName').text('');
+        $('#errorPostingBoxEmail').text('');
+        $('#errorPostingBoxPassword').text('');
+        $('#errorPostingBoxPasswordCheck').text('');
+        $('#errorPostingBoxTitle').text('');
+        $('#errorPostingBoxDescription').text('');
+
+        let isValid = true;
+
+        if (isEmpty(username) == false) {
+            $('#errorPostingBoxAuthorName').text('이름을 입력하세요')
+            isValid = false;
+        }
+
+        if (isEmpty(email) == false) {
+            $('#errorPostingBoxEmail').text('이메일을 입력하세요');
+            isValid = false;
+        } else if (isValidEmail(email) == false) {
+            $('#errorPostingBoxEmail').text('올바른 이메일 형식이 아닙니다');
+            isValid = false;
+        }
+
+        if (isEmpty(password) == false) {
+            $('#errorPostingBoxPassword').text('패스워드를 입력하세요')
+            isValid = false;
+        } else if (password !== password2) {
+            $('#errorPostingBoxPasswordCheck').text('패스워드가 일치하지 않습니다')
+            isValid = false;
+        }
+
+        if (isEmpty(title) == false) {
+            $('#errorPostingBoxTitle').text('제목을 입력하세요')
+            isValid = false;
+        }
+
+        if (isEmpty(description) == false) {
+            $('#errorPostingBoxDescription').text('내용을 입력하세요')
+            isValid = false;
+        }
+
+        if (!isValid) {
+            alert('다시 확인해주세요')
+            return;
+        }
+
+        let data = {
+            'username': username,
+            'email': email,
+            'password': password,
+            'title': title,
+            'description': description
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "api/schedule",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function(response) {
+                alert('작성되었습니다');
+                window.location.reload();
+            },
+        })
     }
 </script>
 
@@ -64,7 +148,8 @@
         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
                 role="tab" aria-controls="nav-home" aria-selected="true">일정 확인
         </button>
-        <button class="nav-link" id="nav-create-schedule-tab" data-bs-toggle="tab" data-bs-target="#nav-create-schedule" type="button"
+        <button class="nav-link" id="nav-create-schedule-tab" data-bs-toggle="tab" data-bs-target="#nav-create-schedule"
+                type="button"
                 role="tab" aria-controls="nav-create-schedule" aria-selected="false">일정 추가
         </button>
     </div>
@@ -72,41 +157,70 @@
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
         <!--        스케쥴 조회-->
-        ...
+        <div class="scheduleArea">
+            <!--        테스트-->
+            <div class="card">
+                <div class="card-header">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="tab-pane fade" id="nav-create-schedule" role="tabpanel" aria-labelledby="nav-create-schedule-tab" tabindex="0">
+    <div class="tab-pane fade" id="nav-create-schedule" role="tabpanel" aria-labelledby="nav-create-schedule-tab"
+         tabindex="0">
         <!--글 작성 영역-->
-        <div class="schedulePostingBox">
+        <div class="scheduleArea">
             <!--    작성자 이름-->
             <div class="mb-3 postingBoxContent1">
                 <label for="postingBoxAuthorName" class="form-label">이름</label>
                 <input type="text" class="form-control" id="postingBoxAuthorName" placeholder="홍길동">
+                <div id="errorPostingBoxAuthorName" class="text-danger"></div>
             </div>
             <!--    이메일-->
             <div class="mb-3 postingBoxContent1">
                 <label for="postingBoxEmail" class="form-label">이메일</label>
                 <input type="email" class="form-control" id="postingBoxEmail" placeholder="name@example.com">
+                <div id="errorPostingBoxEmail" class="text-danger"></div>
             </div>
             <!--    패스워드-->
             <div class="mb-3 postingBoxContent1">
                 <label for="postingBoxPassword" class="form-label">패스워드</label>
                 <input type="password" class="form-control" id="postingBoxPassword" placeholder="1234qwer!">
+                <div id="errorPostingBoxPassword" class="text-danger"></div>
             </div>
             <!--    패스워드 확인용-->
             <div class="mb-3 postingBoxContent1">
                 <label for="postingBoxPasswordCheck" class="form-label">패스워드 확인</label>
                 <input type="password" class="form-control" id="postingBoxPasswordCheck" placeholder="1234qwer!">
+                <div id="errorPostingBoxPasswordCheck" class="text-danger"></div>
             </div>
             <!--    제목-->
             <div class="mb-3 postingBoxContent1">
                 <label for="postingBoxTitle" class="form-label">제목</label>
                 <input type="text" class="form-control" id="postingBoxTitle" placeholder="제목">
+                <div id="errorPostingBoxTitle" class="text-danger"></div>
             </div>
             <!--    내용-->
             <div class="mb-3 postingBoxContent1">
                 <label for="postingBoxDescription" class="form-label">내용</label>
                 <textarea class="form-control" placeholder="내용" id="postingBoxDescription"
                           style="height: 200px"></textarea>
+                <div id="errorPostingBoxDescription" class="text-danger"></div>
             </div>
             <!--    버튼-->
             <button type="button" onclick="writePost()" class="btn btn-success postingBoxContent1">등록하기</button>
