@@ -1,5 +1,6 @@
 package com.sparta.schedule_management.service;
 
+import com.sparta.schedule_management.dto.ScheduleDeleteDto;
 import com.sparta.schedule_management.dto.ScheduleRequestDto;
 import com.sparta.schedule_management.dto.ScheduleResponseDto;
 import com.sparta.schedule_management.dto.ScheduleUpdateDto;
@@ -53,7 +54,7 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(schedule_id);
 
         if (schedule == null) {
-            throw new NoSuchElementException("해당 id의 일정 게시판이 존재하지 않습니다.");
+            throw new NoSuchElementException("해당 id의 일정 게시물이 존재하지 않습니다.");
         }
 
         if (!Util.checkPassword(requestDto.getPassword(), schedule.getEncrypted_password())) {
@@ -63,5 +64,20 @@ public class ScheduleService {
         scheduleRepository.update(schedule_id, requestDto);
 
         return scheduleRepository.getScheduleInfo(schedule_id);
+    }
+
+    public int delete(int schedule_id, ScheduleDeleteDto requestDto) {
+        Schedule schedule = scheduleRepository.findById(schedule_id);
+
+        if (schedule == null) {
+            throw new NoSuchElementException("해당 id의 일정 게시물이 존재하지 않습니다.");
+        }
+
+        if (!Util.checkPassword(requestDto.getPassword(), schedule.getEncrypted_password())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
+        }
+
+        scheduleRepository.delete(schedule_id);
+        return schedule_id;
     }
 }

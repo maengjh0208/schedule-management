@@ -126,4 +126,9 @@ public class ScheduleRepository {
         String sql = "UPDATE schedule SET author_name = ?, description = ? WHERE schedule_id = ?";
         jdbcTemplate.update(sql, requestDto.getUsername(), requestDto.getDescription(), scheduleId);
     }
+
+    public void delete(int scheduleId) {
+        String sql = "UPDATE schedule SET use_yn = 'N' WHERE schedule_id = ?";
+        jdbcTemplate.update(sql, scheduleId);
+    }
 }
