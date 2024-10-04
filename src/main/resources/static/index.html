@@ -14,6 +14,11 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--    Data Range Picker-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <style>
@@ -53,7 +58,17 @@
 </style>
 
 <script>
-
+    $(function() {
+        $('#calenderDate').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format('YYYY'),10),
+        }, function(start, end, label) {
+            var formattedDate = start.format('YYYY-MM-DD');
+            $('#calenderDate').val(formattedDate);
+        });
+    });
 
     function isEmpty(content) {
         return content !== '';
@@ -73,6 +88,7 @@
         let title = $('#postingBoxTitle').val().trim();
         let description = $('#postingBoxDescription').val().trim();
 
+        // 에러 문구 초기화
         $('#errorPostingBoxAuthorName').text('');
         $('#errorPostingBoxEmail').text('');
         $('#errorPostingBoxPassword').text('');
@@ -82,20 +98,20 @@
 
         let isValid = true;
 
-        if (isEmpty(username) == false) {
+        if (isEmpty(username) === false) {
             $('#errorPostingBoxAuthorName').text('이름을 입력하세요')
             isValid = false;
         }
 
-        if (isEmpty(email) == false) {
+        if (isEmpty(email) === false) {
             $('#errorPostingBoxEmail').text('이메일을 입력하세요');
             isValid = false;
-        } else if (isValidEmail(email) == false) {
+        } else if (isValidEmail(email) === false) {
             $('#errorPostingBoxEmail').text('올바른 이메일 형식이 아닙니다');
             isValid = false;
         }
 
-        if (isEmpty(password) == false) {
+        if (isEmpty(password) === false) {
             $('#errorPostingBoxPassword').text('패스워드를 입력하세요')
             isValid = false;
         } else if (password !== password2) {
@@ -103,12 +119,12 @@
             isValid = false;
         }
 
-        if (isEmpty(title) == false) {
+        if (isEmpty(title) === false) {
             $('#errorPostingBoxTitle').text('제목을 입력하세요')
             isValid = false;
         }
 
-        if (isEmpty(description) == false) {
+        if (isEmpty(description) === false) {
             $('#errorPostingBoxDescription').text('내용을 입력하세요')
             isValid = false;
         }
@@ -158,6 +174,10 @@
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
         <!--        스케쥴 조회-->
         <div class="scheduleArea">
+            <!--            날짜 선택-->
+            <input type="text" id="calenderDate" value="10/24/1984" />
+            <div id="calenderDateTest"></div>
+
             <!--        테스트-->
             <div class="card">
                 <div class="card-header">

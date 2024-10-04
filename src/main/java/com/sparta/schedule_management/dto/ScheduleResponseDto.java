@@ -3,8 +3,12 @@ package com.sparta.schedule_management.dto;
 import com.sparta.schedule_management.entity.Schedule;
 import com.sparta.schedule_management.entity.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
+@NoArgsConstructor
 public class ScheduleResponseDto {
     private int user_id;
     private int schedule_id;
